@@ -16,8 +16,8 @@ import Header from './src/components/header';
 import Contents from './src/components/contents';
 import Authentication from './src/components/authentication';
 
-type Props = {};
-export default class App extends Component<Props> {
+
+export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
