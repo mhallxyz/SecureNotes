@@ -8,8 +8,8 @@ import {
 const Header = props => {
   return(
   <View style={styles.header}>
-    <Text>
-      Header Section
+    <Text style={styles.text}>
+      secure notes.
     </Text>
   </View>
   );
@@ -17,8 +17,15 @@ const Header = props => {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "red",
+    backgroundColor: "#29ce98",
     flex: 1,
+    alignItems: "flex-end",
+    justifyContent : "flex-end",
+  },
+  text: {
+    color: "#ffffff",
+    fontSize: 40,
+    padding: 5
   }
 })
 
