@@ -14,14 +14,21 @@ import {
 
 import Header from './src/components/header';
 import Contents from './src/components/contents';
+import Authentication from './src/components/authentication';
 
 type Props = {};
 export default class App extends Component<Props> {
+  constructor(props) {
+    super(props)
+    this.state = {
+      authPassed: false
+    }
+  }
   render() {
     return (
       <View style={styles.container}>
         <Header/>
-        <Contents/>
+        {this.state.authPassed ? <Contents/> : <Authentication />}
       </View>
     );
   }

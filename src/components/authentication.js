@@ -5,11 +5,11 @@ import {
   StyleSheet
 } from 'react-native';
 
-const Contents = props => {
+const Authentication = props => {
   return(
   <View style={styles.header}>
     <Text>
-      Contents Section
+      Authentication Section
     </Text>
   </View>
   );
@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Contents;
+export default Authentication;
