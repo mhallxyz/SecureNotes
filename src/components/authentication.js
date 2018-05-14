@@ -16,6 +16,27 @@ export default class Authentication extends Component {
         same: false
       }
     }
+
+  load(key) {
+    try {
+      const value = await AsyncStorage.getItem(key);
+      if (value !== null){
+        // We have data!!
+        console.log(value);
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  }
+
+  save(key, value) {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (error) {
+      // Error saving data
+    }
+  }
+
   render() {
     return(
         <View style={styles.header}>
