@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  Button
+  Button,
+  AsyncStorage
 } from 'react-native';
 
 export default class Authentication extends Component {
@@ -13,16 +14,18 @@ export default class Authentication extends Component {
       this.state = {
         pass1: "",
         pass2: "",
-        same: false
+        same: false,
+        pw: null,
       }
     }
 
-  load(key) {
+  async load(key) {
     try {
       const value = await AsyncStorage.getItem(key);
       if (value !== null){
         // We have data!!
         console.log(value);
+        this.setState({pw: value})
       }
     } catch (error) {
       // Error retrieving data
@@ -31,7 +34,8 @@ export default class Authentication extends Component {
 
   save(key, value) {
     try {
-      await AsyncStorage.setItem(key, value);
+      AsyncStorage.setItem(key, value)
+      .then(() => this.load("pwKey"))
     } catch (error) {
       // Error saving data
     }
@@ -47,8 +51,9 @@ export default class Authentication extends Component {
             <TextInput onChangeText={text => this.setState({pass2: text})} value={this.state.pass2} placeholder="Repeat the secure password" style={styles.textInput}/>
             <Text style={styles.text}>
             Matching Passwords: {this.state.pass1.length > 0 && this.state.pass1 === this.state.pass2 ? "True" : "False"}
+            pw in state: {this.state.pw}
             </Text>
-            <Button title="Create Password" style={styles.button} onPress={() => console.log("Test")}/>
+            <Button title="Create Password" style={styles.button} onPress={() => this.save("pwKey" ,this.state.pass1)}/>
         </View>
     )
   }
