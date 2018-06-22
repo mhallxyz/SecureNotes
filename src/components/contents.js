@@ -6,7 +6,8 @@ import {
   ScrollView,
   Dimensions,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage,
 } from 'react-native';
 import Entry from './entry';
 import { TextInput } from 'react-native-gesture-handler';
@@ -16,17 +17,30 @@ class Contents extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: ['fdghsfh','gdasfd','agdgfdga','gafadgf','fdghsfh','gdasfd','agdgfdga','gafadgf','fdghsfh','gdasfd','agdgfdga','gafadgf','fdghsfh','gdasfd','agdgfdga','gafadgf','fdghsfh','gdasfd','agdgfdga','gafadgf'],
+      notes: [],
       addScreen: false,
       newNote: ""
     }
   }
 
-  // componentDidMount() {
-  //   AsyncStorage.getItem("notes").then((value) => {
-  //       this.setState({"notes": value});
-  //   }).done();
-  // };
+  componentDidMount() {
+    this.getSavedNotes()
+  };
+
+  setSavedNotes() {
+    AsyncStorage.setItem('notes', this.state.notes);
+  }
+
+  getSavedNotes() {
+    AsyncStorage.getItem("notes").then((value) => {
+      console.log(value);
+      if (value === null || value === undefined){
+        this.setState({notes: []})
+      } else {
+        this.setState({notes: value.toString})
+      }
+    }).done();
+  }
 
   addNote(noteContent) {
     if (this.state.addScreen) {
@@ -37,6 +51,7 @@ class Contents extends Component {
       addScreen: false,
       newNote: ''
     });
+    this.setSavedNotes()
     } else {
       this.setState({addScreen: true});
     }
