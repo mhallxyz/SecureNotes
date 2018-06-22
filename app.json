@@ -1,4 +1,5 @@
 {
-  "name": "SecureNotes",
-  "displayName": "SecureNotes"
+  "expo": {
+    "sdkVersion": "27.0.0"
+  }
 }
