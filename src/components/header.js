@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "flex-end",
     justifyContent : "flex-end",
+    elevation: 10,
   },
   text: {
     color: "#ffffff",

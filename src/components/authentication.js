@@ -19,6 +19,7 @@ export default class Authentication extends Component {
         pass2: "",
         same: false,
         myKey: null,
+        pass3: '',
       }
     }
 
@@ -35,21 +36,31 @@ export default class Authentication extends Component {
   };
 
   render() {
+    console.log(this.state.myKey)
     return(
         <View style={styles.header}>
             <Text>
             Authentication Section
             </Text>
+            {this.state.myKey !== null && this.state.myKey !== undefined ? <View>
+              <TextInput onChangeText={text => this.setState({pass3: text})} value={this.state.pass3} placeholder="Enter your password" style={styles.noteEntryBox}/>
+              <Button title="Authenticate" onPress={() => {this.state.myKey === this.state.pass3 ? this.props.authPass(true) : null}} />
+              </View>
+            : <View>
             <TextInput onChangeText={text => this.setState({pass1: text})} value={this.state.pass1} placeholder="Set a secure password" style={styles.noteEntryBox}/>
             <TextInput onChangeText={text => this.setState({pass2: text})} value={this.state.pass2} placeholder="Repeat the secure password" style={styles.noteEntryBox}/>
             <Text style={styles.text}>
               Matching Passwords: {this.state.pass1.length > 0 && this.state.pass1 === this.state.pass2 ? "True" : "False"}
             </Text>
+            <Button title="Create Password" style={styles.button} onPress={() => this.save("myKey" ,this.state.pass1)}/>
+            </View>}
             <Text style={styles.text}>
               myKey in state: {this.state.myKey}
             </Text>
-            <Button title="Create Password" style={styles.button} onPress={() => this.save("myKey" ,this.state.pass1)}/>
+
             <Button title="test" onPress={() => this.props.authPass(true)} />
+
+            <Button title="clear" onPress={() => AsyncStorage.clear()} />
         </View>
     )
   }
