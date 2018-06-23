@@ -1,0 +1,3 @@
+rootProject.name = 'SecureNotes'
+
+include ':app'

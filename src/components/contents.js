@@ -8,9 +8,10 @@ import {
   Button,
   TouchableOpacity,
   AsyncStorage,
+  TextInput
 } from 'react-native';
 import Entry from './entry';
-import { TextInput } from 'react-native-gesture-handler';
+// import { TextInput } from 'react-native-gesture-handler';
 var {height, width} = Dimensions.get('window');
 
 class Contents extends Component {
