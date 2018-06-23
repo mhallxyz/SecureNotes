@@ -28,18 +28,20 @@ class Contents extends Component {
   };
 
   setSavedNotes() {
-    AsyncStorage.setItem('notes', this.state.notes);
+    AsyncStorage.setItem('notes', JSON.stringify(this.state.notes));
   }
 
   getSavedNotes() {
     AsyncStorage.getItem("notes").then((value) => {
-      console.log(value);
+      console.log("Values from Async ==== >",value);
       if (value === null || value === undefined){
         this.setState({notes: []})
+        console.log("Block1")
       } else {
-        this.setState({notes: value.toString})
+        this.setState({notes: JSON.parse(value)})
+        console.log("Block2")
       }
-    }).done();
+    }).done(console.log(this.state));
   }
 
   addNote(noteContent) {
@@ -58,7 +60,8 @@ class Contents extends Component {
   }
 
   render() {
-    console.log(this.state.newNote)
+    console.log("Value of new note: ",this.state.newNote)
+    console.log("Value of Notes in state:", this.state.notes)
     return( 
       <View style={styles.notes}>
       {this.state.addScreen === true ? 
@@ -68,7 +71,7 @@ class Contents extends Component {
       </View> : null}
       {this.state.addScreen === false ? 
         <ScrollView>
-          {this.state.notes.map((note, index) => <Entry key={index} note={note} />)}
+          {this.state.notes !== undefined ? (this.state.notes.map((note, index) => <Entry key={index} note={note} />)) : null}
         </ScrollView> : null}
         <TouchableOpacity onPress={() => this.addNote(this.state.newNote)} style={styles.button} title='Add Note'>
         <View style={styles.buttonSurround}>
