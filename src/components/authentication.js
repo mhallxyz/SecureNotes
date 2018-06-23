@@ -5,8 +5,11 @@ import {
   StyleSheet,
   TextInput,
   Button,
-  AsyncStorage
+  AsyncStorage,
+  Dimensions
 } from 'react-native';
+
+var {height, width} = Dimensions.get('window');
 
 export default class Authentication extends Component {
   constructor(props) {
@@ -37,8 +40,8 @@ export default class Authentication extends Component {
             <Text>
             Authentication Section
             </Text>
-            <TextInput onChangeText={text => this.setState({pass1: text})} value={this.state.pass1} placeholder="Set a secure password" style={styles.textInput}/>
-            <TextInput onChangeText={text => this.setState({pass2: text})} value={this.state.pass2} placeholder="Repeat the secure password" style={styles.textInput}/>
+            <TextInput onChangeText={text => this.setState({pass1: text})} value={this.state.pass1} placeholder="Set a secure password" style={styles.noteEntryBox}/>
+            <TextInput onChangeText={text => this.setState({pass2: text})} value={this.state.pass2} placeholder="Repeat the secure password" style={styles.noteEntryBox}/>
             <Text style={styles.text}>
               Matching Passwords: {this.state.pass1.length > 0 && this.state.pass1 === this.state.pass2 ? "True" : "False"}
             </Text>
@@ -46,6 +49,7 @@ export default class Authentication extends Component {
               myKey in state: {this.state.myKey}
             </Text>
             <Button title="Create Password" style={styles.button} onPress={() => this.save("myKey" ,this.state.pass1)}/>
+            <Button title="test" onPress={() => this.props.authPass(true)} />
         </View>
     )
   }
@@ -67,5 +71,19 @@ const styles = StyleSheet.create({
   },
   text: {
     padding: 12
+  },
+  noteEntryBox: {
+    height: 75,
+    width: width,
+    position: 'relative',
+    backgroundColor: '#ffffff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#000',
+    padding: 20
+  },
+  noteEntryContainer: {
+    padding: 12,
+    flex: 1
   }
 })

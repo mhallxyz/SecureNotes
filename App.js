@@ -21,14 +21,14 @@ export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      authPassed: true
+      authPassed: false
     }
   }
   render() {
     return (
       <View style={styles.container}>
-        <Header/>
-        {this.state.authPassed ? <Contents/> : <Authentication />}
+        <Header showLock={this.state.authPassed} authPass={authorization => this.setState({authPassed: authorization})}/>
+        {this.state.authPassed ? <Contents/> : <Authentication authPass={authorization => this.setState({authPassed: authorization})} />}
       </View>
     );
   }
