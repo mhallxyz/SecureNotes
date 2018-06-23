@@ -57,16 +57,17 @@ class Contents extends Component {
     }
   }
 
-  removeNote(noteText) {
+  removeNote(noteIndex) {
     const notes1 = this.state.notes;
-    console.log("Deletion index =============> ", noteText)
+    console.log("Deletion index =============> ", noteIndex)
     console.log(notes1)
-    notes1.splice(notes1.length - noteText -1, 0);
+    notes1.splice(noteIndex, 1);
     this.setState({
       notes: notes1,
       addScreen: false,
       newNote: ''
     });
+    this.setSavedNotes()
   }
 
   render() {
@@ -79,7 +80,9 @@ class Contents extends Component {
       </View> : null}
       {this.state.addScreen === false ? 
         <ScrollView>
-          {this.state.notes !== undefined ? (this.state.notes.map((note, index) => <Entry key={index} location={index} note={note} removeNote={index => this.removeNote(index)} />)) : null}
+          {this.state.notes !== undefined ? (this.state.notes.map((note, index) => <TouchableOpacity onLongPress={() => this.removeNote(index)} key={index} location={index}>
+          <Entry key={index} location={index} note={note} />
+          </TouchableOpacity>)) : null}
         </ScrollView> : null}
         <TouchableOpacity onPress={() => this.addNote(this.state.newNote)} style={styles.button} title='Add Note'>
         <View style={styles.buttonSurround}>
