@@ -62,9 +62,6 @@ export default class Authentication extends Component {
             <Text style={styles.text}>
               myKey in state: {this.state.myKey}
             </Text>
-            <Text style={styles.welcome}>
-              {`${SHA256("foobar")}`}
-            </Text>
 
             <Button title="test" onPress={() => this.props.authPass(true)} />
 
