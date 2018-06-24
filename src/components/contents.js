@@ -80,7 +80,7 @@ class Contents extends Component {
         <TextInput style={styles.noteEntryBox} placeholder="Enter new note here" value={this.state.newNote} onChangeText={text => this.setState({newNote: text})} />
       </View> : null}
       {this.state.addScreen === false ? 
-        <ScrollView>
+        <ScrollView style={styles.scroll}>
           {this.state.notes !== undefined ? (this.state.notes.map((note, index) => <TouchableOpacity onLongPress={() => this.removeNote(index)} key={index} location={index}>
           <Entry key={index} location={index} note={note} />
           </TouchableOpacity>)) : null}
@@ -132,6 +132,9 @@ const styles = StyleSheet.create({
   noteEntryContainer: {
     padding: 12,
     flex: 1
+  },
+  scroll: {
+    flex: 1,
   }
 })
 

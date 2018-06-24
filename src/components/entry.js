@@ -13,11 +13,12 @@ const Entry = props => {
 const styles = StyleSheet.create({
     note: {
       width: width,
-      height: 50,
+      minHeight: 50,
       justifyContent: 'center',
       alignItems: 'center',
       borderBottomColor: '#999',
-      borderBottomWidth: 1
+      borderBottomWidth: 1,
+      padding: 12
     }
   })
 
