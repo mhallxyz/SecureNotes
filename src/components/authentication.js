@@ -48,12 +48,12 @@ export default class Authentication extends Component {
             Authentication Section
             </Text>
             {this.state.myKey !== null && this.state.myKey !== undefined ? <View>
-              <TextInput onChangeText={text => this.setState({pass3: text})} value={this.state.pass3} placeholder="Enter your password" style={styles.noteEntryBox}/>
+              <TextInput onChangeText={text => this.setState({pass3: text})} value={this.state.pass3} placeholder="Enter your password" style={styles.noteEntryBox} secureTextEntry/>
               <Button title="Authenticate" onPress={() => {this.state.myKey === `${SHA256(this.state.pass3)}` ? this.props.authPass(true) : null}} />
               </View>
             : <View>
-            <TextInput onChangeText={text => this.setState({pass1: text})} value={this.state.pass1} placeholder="Set a secure password" style={styles.noteEntryBox}/>
-            <TextInput onChangeText={text => this.setState({pass2: text})} value={this.state.pass2} placeholder="Repeat the secure password" style={styles.noteEntryBox}/>
+            <TextInput onChangeText={text => this.setState({pass1: text})} value={this.state.pass1} placeholder="Set a secure password" style={styles.noteEntryBox} secureTextEntry/>
+            <TextInput onChangeText={text => this.setState({pass2: text})} value={this.state.pass2} placeholder="Repeat the secure password" style={styles.noteEntryBox} secureTextEntry/>
             <Text style={styles.text}>
               Matching Passwords: {this.state.pass1.length > 0 && this.state.pass1 === this.state.pass2 ? "True" : "False"}
             </Text>
@@ -62,8 +62,6 @@ export default class Authentication extends Component {
             <Text style={styles.text}>
               myKey in state: {this.state.myKey}
             </Text>
-
-            <Button title="test" onPress={() => this.props.authPass(true)} />
 
             <Button title="clear" onPress={() => AsyncStorage.clear()} />
         </View>
