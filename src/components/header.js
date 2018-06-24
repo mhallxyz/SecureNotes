@@ -6,7 +6,7 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
-const Lock = require('../assets/baseline_lock_white_36dp.png');
+const Lock = require('../assets/lock.png');
 
 const Header = props => {
   return(
