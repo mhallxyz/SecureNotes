@@ -19,7 +19,6 @@ export default class Authentication extends Component {
       this.state = {
         pass1: "",
         pass2: "",
-        same: false,
         myKey: null,
         pass3: '',
         hashPass3: ''
@@ -34,17 +33,15 @@ export default class Authentication extends Component {
   };
 
   save(key, value) {
-    console.log(`${SHA256(value)}`)
     AsyncStorage.setItem("myKey", `${SHA256(value)}`);
     this.setState({"myKey": `${SHA256(value)}`});
   };
 
   render() {
-    console.log(this.state.myKey)
     return(
         <View style={styles.header}>
             <Text>
-            Authentication Section
+            Authentication
             </Text>
             {this.state.myKey !== null && this.state.myKey !== undefined ? <View>
               <TextInput onChangeText={text => this.setState({pass3: text})} value={this.state.pass3} placeholder="Enter your password" style={styles.noteEntryBox} secureTextEntry/>
@@ -56,13 +53,8 @@ export default class Authentication extends Component {
             <Text style={styles.text}>
               Matching Passwords: {this.state.pass1.length > 0 && this.state.pass1 === this.state.pass2 ? "True" : "False"}
             </Text>
-            <Button title="Create Password" style={styles.button} onPress={() => this.save("myKey" ,this.state.pass1)}/>
+            <Button title="Create Password" style={styles.button} onPress={() => {this.state.pass1.length > 0 && this.state.pass1 === this.state.pass2 ? this.save("myKey" , this.state.pass1) : null}} />
             </View>}
-            <Text style={styles.text}>
-              myKey in state: {this.state.myKey}
-            </Text>
-
-            <Button title="clear" onPress={() => AsyncStorage.clear()} />
         </View>
     )
   }
