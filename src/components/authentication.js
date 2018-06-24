@@ -9,7 +9,8 @@ import {
   Dimensions
 } from 'react-native';
 
-import * as SHA from 'js-sha256';
+var AES = require("crypto-js/aes");
+var SHA256 = require("crypto-js/sha256");
 
 var {height, width} = Dimensions.get('window');
 
@@ -34,8 +35,9 @@ export default class Authentication extends Component {
   };
 
   save(key, value) {
-    AsyncStorage.setItem("myKey", SHA.sha256(value));
-    this.setState({"myKey": SHA.sha256(value)});
+    console.log(`${SHA256(value)}`)
+    AsyncStorage.setItem("myKey", `${SHA256(value)}`);
+    this.setState({"myKey": `${SHA256(value)}`});
   };
 
   render() {
@@ -47,7 +49,7 @@ export default class Authentication extends Component {
             </Text>
             {this.state.myKey !== null && this.state.myKey !== undefined ? <View>
               <TextInput onChangeText={text => this.setState({pass3: text})} value={this.state.pass3} placeholder="Enter your password" style={styles.noteEntryBox}/>
-              <Button title="Authenticate" onPress={() => {this.state.myKey === SHA.sha256(this.state.pass3) ? this.props.authPass(true) : null}} />
+              <Button title="Authenticate" onPress={() => {this.state.myKey === `${SHA256(this.state.pass3)}` ? this.props.authPass(true) : null}} />
               </View>
             : <View>
             <TextInput onChangeText={text => this.setState({pass1: text})} value={this.state.pass1} placeholder="Set a secure password" style={styles.noteEntryBox}/>
@@ -61,7 +63,7 @@ export default class Authentication extends Component {
               myKey in state: {this.state.myKey}
             </Text>
             <Text style={styles.welcome}>
-              {SHA.sha256("foobar")}
+              {`${SHA256("foobar")}`}
             </Text>
 
             <Button title="test" onPress={() => this.props.authPass(true)} />
