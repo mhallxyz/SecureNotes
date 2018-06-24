@@ -9,7 +9,6 @@ import {
   Dimensions
 } from 'react-native';
 
-var AES = require("crypto-js/aes");
 var SHA256 = require("crypto-js/sha256");
 
 var {height, width} = Dimensions.get('window');

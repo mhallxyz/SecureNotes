@@ -11,7 +11,10 @@ import {
   TextInput
 } from 'react-native';
 import Entry from './entry';
-// import { TextInput } from 'react-native-gesture-handler';
+
+var CryptoJS = require("crypto-js");
+var AES = require("crypto-js/aes");
+
 var {height, width} = Dimensions.get('window');
 
 class Contents extends Component {
@@ -20,12 +23,15 @@ class Contents extends Component {
     this.state = {
       notes: [],
       addScreen: false,
+      myKey: null,
       newNote: ""
     }
   }
 
   componentDidMount() {
-    this.getSavedNotes()
+    AsyncStorage.getItem("myKey").then((value) => {
+      this.setState({"myKey": value});
+    }).done(this.getSavedNotes());
   };
 
   setSavedNotes() {
@@ -38,6 +44,12 @@ class Contents extends Component {
       if (value === null || value === undefined){
         this.setState({notes: []})
       } else {
+        const eValue = `${AES.encrypt(JSON.stringify(value), this.state.myKey)}`
+        var bytes  = AES.decrypt(eValue.toString(), this.state.myKey)
+        var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        console.log(eValue)
+        console.log(bytes)
+        console.log(decryptedData)
         this.setState({notes: JSON.parse(value)})
       }
     }).done();
